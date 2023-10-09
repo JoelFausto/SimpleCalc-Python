@@ -7,49 +7,63 @@ cliqueNum1, cliqueNum2 = 0, 0
 
 def operations(n):
     global n1, n2, res, cliqueNum1, cliqueNum2
-    n1 = int(n1)
-    n2 = int(n2)
+    n1 = float(n1)
+    n2 = float(n2)
 
     if n == 1: # SOMA
         res = n1 + n2
+        res = verificar_converter(res)
         cleanText()
         text_resp = Label(janela, text=res)
         text_resp.grid(column=1, row=0, padx=0, pady=0)
         cliqueNum1, cliqueNum2 = 0, 0
     elif n == 2: # SUBTRAÇÂO
         res = n1 - n2
+        res = verificar_converter(res)
         cleanText()
         text_resp = Label(janela, text=res)
         text_resp.grid(column=1, row=0, padx=0, pady=0)
         cliqueNum1, cliqueNum2 = 0, 0
     elif n == 3: # MULTIPLICAÇÃO
         res = n1 * n2
+        res = verificar_converter(res)
         cleanText()
         text_resp = Label(janela, text=res)
         text_resp.grid(column=1, row=0, padx=0, pady=0)
         cliqueNum1, cliqueNum2 = 0, 0
     elif n == 4: # DIVISÃO
         res = n1 / n2
+        res = verificar_converter(res)
         cleanText()
         text_resp = Label(janela, text=res)
         text_resp.grid(column=1, row=0, padx=0, pady=0)
         cliqueNum1, cliqueNum2 = 0, 0
     elif n == 5: # EXPONENCIAÇÂO
         res = n1 ** n2
+        res = verificar_converter(res)
         cleanText()
         text_resp = Label(janela, text=res)
         text_resp.grid(column=1, row=0, padx=0, pady=0)
         cliqueNum1, cliqueNum2 = 0, 0
 
+def verificar_converter(valor):
+    if valor - int(valor) == 0:
+        return int(valor)
+    else:
+        return valor
+
 def cleanText():
-    text_resp = Label(janela, text='')
-    text_resp.grid(column=1, row=0, padx=0, pady=0)
+    # Remove qualquer Label existente na coluna 1, linha 0
+    for widget in janela.grid_slaves():
+        if int(widget.grid_info()["row"]) == 0 and int(widget.grid_info()["column"]) == 1:
+            widget.grid_forget()
 
 def clean(use):
     if use == True:
         cleanText()
         global op, n1, n2, res, cliqueNum1, cliqueNum2
         op, n1, n2, res, cliqueNum1, cliqueNum2 = 0, 0, 0, 0, 0, 0
+        # Cria uma nova Label vazia e coloca na coluna 1, linha 0
         text_resp = Label(janela, text=res)
         text_resp.grid(column=1, row=0, padx=0, pady=0)
 
@@ -136,9 +150,9 @@ buttonNum("7".center(7), '7', 2, 4, 5, 5)
 buttonNum("8".center(7), '8', 3, 4, 5, 5)
 buttonNum("9".center(7), '9', 4, 4, 5, 5)
 buttonNum("0".center(7), '0', 3, 5, 5, 5)
+buttonNum(".".center(8), '.', 2, 5, 5, 5)
 
 # Botões livres
-buttonNum("".center(8), '', 2, 5, 5, 5)
 buttonNum("".center(8), '', 2, 1, 5, 5)
 buttonNum("".center(8), '', 3, 1, 4, 5)
 
